@@ -13,6 +13,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
@@ -41,8 +43,26 @@ public class Usuario {
 	//seja excluido
 	
 	@OneToMany(mappedBy= "usuario", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
+	//TESTES
+	
+	//Primeiro método construtor com atributos
+	
+	public Usuario(long id, String nome, String usuario, String senha) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
+	
+	//Segundo método - Sem atributos
+	
+	public Usuario(){ 	};
+	
+	//FIM DOS TESTES
+		
 	//getters and setters
 	
 	public Long getId() {
